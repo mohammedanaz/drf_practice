@@ -12,7 +12,7 @@ def list_book(request):
     '''
     To retrieve all the books from Book model.
     '''
-    books = Book.objects.all()
+    books = Book.objects.select_related('author').all()
     serialiser = BookSerialiser(books, many=True)
     return Response(serialiser.data, status=status.HTTP_200_OK)
     
