@@ -26,7 +26,7 @@ class Store(models.Model):
     To store datas of shops. it has M2M relation to Book model.
     '''
     name = models.CharField(max_length=100, null=False, blank=False)
-    store = models.ManyToManyField(Book, related_name='stores')
+    book = models.ManyToManyField(Book, related_name='stores')
 
     def __str__(self):
         return self.name

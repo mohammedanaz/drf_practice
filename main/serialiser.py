@@ -27,3 +27,15 @@ class BookSerialiser(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ['id', 'title', 'author_name']
+
+class StoreSerialiser(serializers.ModelSerializer):
+    '''
+    To serialize all the stores from Store model.
+    '''
+    book_title = serializers.SerializerMethodField()
+    class Meta:
+        model = Store
+        fields = ['id', 'name', 'book_title']
+
+    def get_book_title(self, obj):
+        return [book.title for book in obj.book.all()]

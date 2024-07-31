@@ -5,7 +5,7 @@ from rest_framework import generics
 from .pagination import CustomPagination
 from django.contrib.auth.models import User
 from main.models import Author, Book, Store
-from .serialiser import UserSerialiser, BookSerialiser
+from .serialiser import UserSerialiser, BookSerialiser, StoreSerialiser
 
 @api_view(['GET'])
 def list_book(request):
@@ -14,6 +14,15 @@ def list_book(request):
     '''
     books = Book.objects.select_related('author').all()
     serialiser = BookSerialiser(books, many=True)
+    return Response(serialiser.data, status=status.HTTP_200_OK)
+    
+@api_view(['GET'])
+def list_store(request):
+    '''
+    To retrieve all the stores with book anme from Store model.
+    '''
+    stores = Store.objects.prefetch_related('book').filter(id__lt = 5)
+    serialiser = StoreSerialiser(stores, many=True)
     return Response(serialiser.data, status=status.HTTP_200_OK)
     
     
