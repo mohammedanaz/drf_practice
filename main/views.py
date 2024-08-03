@@ -21,7 +21,7 @@ def list_store(request):
     '''
     To retrieve all the stores with book anme from Store model.
     '''
-    stores = Store.objects.prefetch_related('book').filter(id__lt = 5)
+    stores = Store.objects.prefetch_related('book').all()
     serialiser = StoreSerialiser(stores, many=True)
     return Response(serialiser.data, status=status.HTTP_200_OK)
     
