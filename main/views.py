@@ -32,7 +32,7 @@ def list_store(request):
     if not stores:
         stores = Store.objects.prefetch_related('book').all()
         cache.set('stores', stores, timeout=60*15)
-        print('stores cache created.')
+        print('stores cache created..')
     serialiser = StoreSerialiser(stores, many=True)
     return Response(serialiser.data, status=status.HTTP_200_OK)
     
