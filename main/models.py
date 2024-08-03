@@ -44,3 +44,13 @@ def delete_cache_books(sender, **kwargs):
     '''
     cache.delete('books')
     print('books cache deleted.')
+
+@receiver(post_save, sender=Store)
+@receiver(post_delete, sender=Store)
+def delete_cache_stores(sender, **kwargs):
+    '''
+    This signal receiver function deletes stores cache upon adding, updating 
+    or deleting store instances.
+    '''
+    cache.delete('stores')
+    print('stores cache deleted.')
